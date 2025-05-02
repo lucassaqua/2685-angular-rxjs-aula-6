@@ -1,6 +1,7 @@
 <section class="container">
   <header>Que livro você procura?</header>
   <div class="busca">
+    <!-- o [formControl] é necessário pq o  campoBusca é um FormControl() -->
     <input
       type="search"
       [formControl]="campoBusca"
@@ -15,12 +16,13 @@
   </div>
   <div
     class="resultados"
-    *ngIf="livrosEncontrados$ | async ">
+    *ngIf="livrosEncontrados$ | async "> <!--  com o pipe async o angular se inscreve ( faz subscribe ) no observable livrosEncontrados$ e tbm faz o unsubscribe automaticamente -->
       {{ livrosResultado.totalItems}} resultados encontrados
   </div>
   <div
     class="container-card"
-    *ngIf="livrosEncontrados$ | async as listaLivros, else telaInicial">
+    *ngIf="livrosEncontrados$ | async as listaLivros, else telaInicial"> <!-- o else telaInicial faz com que o conteudo de #telaInicial ( na linha 30 ) seja mostrado-->
+    <!-- o as listaLivros aqui no html cria a variavel listaLivros localmente e atribui o resultado de livrosEncontrados$ a essa variavel -->
     <div *ngFor="let livro of listaLivros">
       <app-livro [livro]="livro"></app-livro>
     </div>
